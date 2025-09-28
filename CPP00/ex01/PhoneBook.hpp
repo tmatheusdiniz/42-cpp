@@ -15,6 +15,8 @@
 
 #include <iostream>
 #include <string>
+#include <cctype>
+#include <cstdlib>
 #include "Contact.hpp"
 
 #define RED "\033[31m"
@@ -31,10 +33,12 @@ class PhoneBook
 	private:
 		Contact contacts[8];
 		int oldest_index;
-		int count;
+		int counter;
 	public:
 		PhoneBook();
 		~PhoneBook();
+		int getCounter() {return this->counter;}
+		void setCounter(int new_counter) {this->counter = new_counter;}
 		void addContact(const Contact contact);
 		void displayAllContacts() const;
 		void displayOneContact(int index) const;

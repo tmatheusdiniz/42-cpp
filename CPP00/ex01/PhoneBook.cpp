@@ -18,8 +18,13 @@
 
 PhoneBook::PhoneBook()
 {
-	this->count = 0;
+	this->counter = 0;
 	this->oldest_index = 0;
+}
+
+PhoneBook::~PhoneBook ()
+{
+	
 }
 
 std::string formatString(const std::string& str)
@@ -41,28 +46,42 @@ std::string formatString(const std::string& str)
 void PhoneBook::addContact(const Contact contact)
 {
 	this->contacts[oldest_index] = contact;
-	if (count < 8)
-		count ++;
+	if (counter < 8)
+		counter ++;
 	oldest_index = (oldest_index + 1) % 8;
 	std::cout << BLUE << "Contact sucessfully added" << DEFAULT << std::endl;
 }
 
+void PhoneBook::displayOneContact(int index) const
+{
+	std::cout << " ___________________________________________ " << std::endl;
+	std::cout << "|      Contact Informations                 |" << std::endl;
+	std::cout << "|___________________________________________|" << std::endl;
+	std::cout << "| First Name:     " << this->contacts[index].getFirstName()
+		<< std::endl;
+	std::cout << "| Last Name:      " << this->contacts[index].getLastName()
+		<< std::endl;
+	std::cout << "| Nickname:       " << this->contacts[index].getNickName()
+		<< std::endl;
+	std::cout << "| Phone Number:   " << this->contacts[index].getPhoneNumber()
+		<< std::endl;
+	std::cout << "| Darkest Secret: " << this->contacts[index].getDarkestSecret()
+		<< std::endl;
+	std::cout << "|___________________________________________|" << std::endl;
+}
+
 void PhoneBook::displayAllContacts() const
 {
-	if (this->count == 0)
-	{
-		std::cout << RED << "No contacts for printing" << DEFAULT << std::endl;
-		return ;
-	}
-	std::cout <<"  ___________________________________________"<< std::endl;
+	std::cout <<" ___________________________________________"<< std::endl;
 	std:: cout <<"|     Index|First Name| Last Name| Nick Name| "<< std::endl;
 	std:: cout <<"|----------|----------|----------|----------|" << std::endl;
-	for (int i = 0; i < this->count; i ++)
+	for (int i = 0; i < this->counter; i ++)
 	{
-		std::cout << std::setw(10) << (i + 1) << "|";
-		std:: cout <<"|" << formatString(this->contacts[i].getFirstName()) << "|";
-		std:: cout <<"|" << formatString(this->contacts[i].getLastName()) << "|";
-		std:: cout <<"|" << formatString(this->contacts[i].getNicktName()) << "|";
+		std::cout << "|" << std::setw(10) << (i + 1) << "|";
+		std:: cout << formatString(this->contacts[i].getFirstName()) << "|";
+		std:: cout << formatString(this->contacts[i].getLastName()) << "|";
+		std:: cout << formatString(this->contacts[i].getNickName()) << "|"
+		<< std::endl;
 	}
 	std:: cout <<"|___________________________________________|" << std::endl;
 }
